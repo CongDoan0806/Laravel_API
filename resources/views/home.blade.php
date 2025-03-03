@@ -12,7 +12,6 @@
     <script>
         
 async function  renderData(){
-   
    try {
        const url = 'http://localhost:8000/api/data';
        const data = await fetch(url);
