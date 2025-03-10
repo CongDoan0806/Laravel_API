@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -15,14 +16,17 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
+
+
+    public function getAllProduct(){
+        $products = Product::take(10)->get();
+        return view('page.product', compact('products'));
+    }
     public function create(){
         return view('products.create');
     }
 
-    // public function store(StoreProductRequest $request){
-    //     $response = Http::post($this->url, $request->validate());
-    //     return redirect()->route('products.index')->with('success', 'Product added successfully');
-    // }
+
 
     public function store(Request $request) {
         $validatedData = $request->validate([

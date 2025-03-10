@@ -71,3 +71,6 @@ Route::group(['prefix' => 'database'], function(){
     Route::get('/dummies',[DatabaseController::class, 'createDummies']);   
     Route::get('/failed-job',[DatabaseController::class, 'createFailedJob']);   
 });
+
+Route::get('/trangchu', [PageController::class, 'getIndex']);
+Route::get('/page/product', [ProductController::class, 'getAllProduct']);
