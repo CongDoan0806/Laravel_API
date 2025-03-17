@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Models\ProductType;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -18,9 +19,18 @@ class ProductController extends Controller
 
 
 
-    public function getAllProduct(){
-        $products = Product::take(10)->get();
-        return view('page.product', compact('products'));
+    // public function getAllProduct(){
+    //     $newproducts = Product::where('new', 1)->paginate(4);
+    //     $topproducts = Product::where('new', 0)->paginate(4);
+    //     $productType = ProductType::all();
+    //     return view('page.productType', compact('newproducts', 'topproducts', 'productType'));
+    // }
+
+    public function showProduct($id){
+        $products = Product::where('id_type', $id)->get();
+        $productType = ProductType::all();
+        $categoryName = ProductType::where('id', $id)->value('name') ?? 'Không có danh mục';
+        return view('page.productType', compact('products', 'productType', 'categoryName'));
     }
     public function create(){
         return view('products.create');

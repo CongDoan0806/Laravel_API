@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ProductType extends Model
+{
+    use HasFactory;
+
+    protected $table = 'type_products';
+
+    protected $fillable = [
+        'name',
+        'description',
+        'image'
+    ];
+
+    public function products(){
+        return $this->hasMany(Product::class, 'id_type', 'id');
+    }
+}
