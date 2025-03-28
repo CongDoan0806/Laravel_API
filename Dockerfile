@@ -1,7 +1,7 @@
-# 1️⃣ Chọn image PHP + Apache
+# Sử dụng PHP 8.2 với Apache
 FROM php:8.2-apache
 
-# 2️⃣ Cài đặt extensions cần thiết cho Laravel
+# Cài đặt các extension PHP cần thiết
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -9,32 +9,27 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
-    curl \
-    && docker-php-ext-install pdo pdo_mysql gd
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_mysql
 
-# 3️⃣ Cài Composer
+# Cài Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 4️⃣ Copy mã nguồn Laravel vào container
-WORKDIR /var/www/html
+# Thiết lập thư mục làm việc
+WORKDIR /var/www
+
+# Copy toàn bộ project vào container
 COPY . .
 
-# 5️⃣ Cài đặt quyền và thư mục storage
+# Cấp quyền cho storage
 RUN chmod -R 777 storage bootstrap/cache
 
-# 6️⃣ Cài đặt dependencies Laravel
+# Chạy lệnh khởi tạo Laravel
 RUN composer install --no-dev --optimize-autoloader
+RUN php artisan config:cache
 
-# 7️⃣ Cấu hình Apache
-RUN echo "<VirtualHost *:80>
-    DocumentRoot /var/www/html/public
-    <Directory /var/www/html/public>
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>" > /etc/apache2/sites-available/000-default.conf
+# Expose cổng 8000
+EXPOSE 8000
 
-RUN a2enmod rewrite
-
-# 8️⃣ Chạy Laravel bằng Apache
-CMD ["apache2-foreground"]
+# Chạy Laravel
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

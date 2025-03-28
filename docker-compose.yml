@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_KEY=${APP_KEY}
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql-36719351-congdoan0806-b5f8.k.aivencloud.com
+      - DB_PORT=26825
+      - DB_DATABASE=defaultdb
+      - DB_USERNAME=avnadmin
+      - DB_PASSWORD=your_password_here
+      - DB_SSLMODE=REQUIRED
