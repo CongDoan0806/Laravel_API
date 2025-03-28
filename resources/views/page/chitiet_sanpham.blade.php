@@ -87,7 +87,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="card-body">
-                    <form method="post" action="/comment/{{$sanpham->id}}">
+                    <form method="post" action="/page/product/cmt/{{$sanpham->id}}">
                       @csrf
                       <div class="form-group">
                         <textarea class="form-control" name="comment" required></textarea>

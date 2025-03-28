@@ -7,9 +7,9 @@
                 <li><a href="#"><i class="fa fa-phone"></i> 0163 296 7751</a></li>
             </ul>
             <ul class="top-details d-flex list-unstyled m-0">
-                <li class="me-3"><a href="/admin"><i class="fa fa-user"></i> Tài khoản</a></li>
-                <li class="me-3"><a href="#">Đăng ký</a></li>
-                <li><a href="#">Đăng nhập</a></li>
+                <li class="me-3"><a href="/admin"><i class="fa fa-user"></i> Admin</a></li>
+                <li class="me-3"><a href="/page/signup">Đăng ký</a></li>
+                <li><a href="/page/login">Đăng nhập</a></li>
             </ul>
         </div>
     </div>
@@ -18,8 +18,9 @@
     <div class="header-body py-3 shadow-sm bg-white">
         <div class="container d-flex justify-content-between align-items-center">
             <a href="/" id="logo"><img src="https://idodesign.vn/wp-content/uploads/2023/10/35-mau-thiet-ke-logo-tiem-banh-dep-31.jpg" width="200" alt="Logo"></a>
-            <form class="d-flex border rounded px-2 py-1" role="search" method="get" action="/">
-                <input type="text" class="form-control border-0 me-2" name="s" placeholder="Nhập từ khóa...">
+            <form class="d-flex border rounded px-2 py-1" role="search" method="post" action="/page/search">
+                @csrf
+                <input type="text" class="form-control border-0 me-2" name="search" placeholder="Nhập từ khóa...">
                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
             </form>
             <div class="cart position-relative">

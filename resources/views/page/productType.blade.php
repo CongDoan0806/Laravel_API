@@ -26,7 +26,7 @@
 								<div class="col-sm-4 d-flex align-items-stretch row-gap-4 "> <!-- Căn đều chiều cao -->
 									<div class="single-item d-flex flex-column">
 										<div class="single-item-header">
-											<a href="product.html">
+											<a href="/page/detail/{{$product->id}}">
 												<img src="/source/image/product/{{ $product->image }}" alt="" class="img-fluid">
 											</a>
 										</div>
@@ -40,7 +40,7 @@
 											<a class="add-to-cart btn btn-primary btn-sm" href="shopping_cart.html">
 												<i class="fa fa-shopping-cart"></i> Add to cart
 											</a>
-											<a class="beta-btn primary btn btn-outline-primary btn-sm" href="product.html">
+											<a class="beta-btn primary btn btn-outline-primary btn-sm" href="/page/detail/{{$product->id}}">
 												Details <i class="fa fa-chevron-right"></i>
 											</a>
 										</div>

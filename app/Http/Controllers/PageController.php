@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Product;
 use App\Models\Slides;
 use App\Models\Comment;
 use App\Models\BillDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -64,13 +68,13 @@ class PageController extends Controller
         $product->new = $request->inputNew;
         $product->id_type = $request->inputType;
         $product->save();
-        return $this->getIndexAdmin();
+        return redirect()->to(session()->get('url.intended', url('/admin')));
     }
     public function postAdminDelete($id)
     {
         $product = Product::find($id);
         $product->delete();
-        return $this->getIndexAdmin();
+        return redirect()->back();
     }
     public function getAdminEdit($id)
     {
@@ -102,7 +106,8 @@ class PageController extends Controller
     $product->id_type = $request->editType; 
     $product->save(); 
     
-    return $this->getIndexAdmin(); 
+    return redirect()->to(session()->get('url.intended', url('/admin')));
+
 }
 
     public function getAbout(){
@@ -111,6 +116,46 @@ class PageController extends Controller
 
     public function getContact(){
         return view('page.lienhe');
+    }
+
+    public function postComment(Request $request, $productId)
+{
+  
+    $comment = new Comment();
+    $comment->username = 'test ne'; 
+    $comment->id_product = $productId;
+    $comment->comment = $request->comment;
+    $comment->save();
+
+    return redirect()->back();
+}
+
+    public function postSearch(Request $request){
+        $products = Product::where('name', 'LIKE', '%'.$request->search.'%')->paginate(6);
+        return view('page.search', compact('products'));
+    }
+
+    public function getLogin(){
+        return view('page.login');
+    }
+    public function getSignup(){
+        return view('page.signup');
+    }
+    public function postLogin(StoreUserRequest $request){
+        $email = $request->email;
+        $password  = $request->password;
+        if(Auth::attempt(['email' => $email, 'password' => $password])){
+            return redirect()->route('trangchu');
+        }
+    }
+
+    public function postSignup(StoreUserRequest $request){
+        $user = new User();
+        $user->name = $request->fullname;
+        $user->email = $request->email;
+        $user->password =  bcrypt($request->password);
+        $user->save();
+        return redirect()->route('login');
     }
 
 }

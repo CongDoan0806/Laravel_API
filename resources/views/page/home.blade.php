@@ -83,7 +83,7 @@
 									<div class="single-item">
 										<div class="single-item-header">
 											@if($product->promotion_price!=0)
-												<div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
+												<div class="ribbon-wrapper"><div class="ribbon sale">Doan</div></div>
 											@endif
 											<a href="/page/detail/{{$product->id}}"><img src="/source/image/product/{{ $product->image }}" alt="" style="max-height: 180px"></a>
 										</div>
@@ -106,16 +106,11 @@
 									</div>
 								</div>
 							@endforeach
-							<nav aria-label="Page navigation example">
-								<ul class="pagination">
-								  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-								  <li class="page-item"><a class="page-link" href="#">1</a></li>
-								  <li class="page-item"><a class="page-link" href="#">2</a></li>
-								  <li class="page-item"><a class="page-link" href="#">3</a></li>
-								  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-								</ul>
-							  </nav>
 							</div>
+							<div class="d-flex justify-content-center mt-5">
+								{{ $topproducts->links() }}
+							</div>
+							
 							<div class="space40">&nbsp;</div>
 							<div class="row">
 								

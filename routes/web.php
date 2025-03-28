@@ -17,12 +17,18 @@ use Illuminate\Support\Facades\Schema;
 |
 */
 Route::group(['prefix' => 'page'], function(){
-    Route::get('/trangchu', [PageController::class, 'getIndex']);
+    Route::get('/trangchu', [PageController::class, 'getIndex'])->name('trangchu');
     Route::get('/product', [ProductController::class, 'getAllProduct']);
     Route::get('/about', [PageController::class, 'getAbout']);
     Route::get('/contact', [PageController::class, 'getContact']);
     Route::get('/detail/{id}', [PageController::class, 'getDetail']);
     Route::get('/product/type/{id}', [ProductController::class, 'showProduct']);
+    Route::post('/product/cmt/{id}', [PageController::class, 'postComment']);
+    Route::post('/search', [PageController::class, 'postSearch']);
+    Route::get('/login', [PageController::class, 'getLogin'])->name('login');
+    Route::get('/signup', [PageController::class, 'getSignup']);
+    Route::post('/postLogin', [PageController::class, 'postLogin']);
+    Route::post('/postSignup', [PageController::class, 'postSignup']);
 });
 
 Route::group(['prefix' => 'admin'], function(){

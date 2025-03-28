@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: laravel-app
+    env: docker
+    repo: https://github.com/yourusername/your-laravel-repo
+    branch: main
+    region: oregon
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_ENV
+        value: production
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: mysql-36719351-congdoan0806-b5f8.k.aivencloud.com
+      - key: DB_PORT
+        value: 26825
+      - key: DB_DATABASE
+        value: defaultdb
+      - key: DB_USERNAME
+        value: avnadmin
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_SSLMODE
+        value: REQUIRED
